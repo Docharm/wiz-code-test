@@ -52,7 +52,7 @@ resource "aws_iam_policy" "bad_policy" {
       {
         Effect   = "Allow"
         Action   = "*"
-        Resource = "*"  # ❌ full 권한
+        Resource = "*"  # ❌ full 권한 test
       }
     ]
   })
