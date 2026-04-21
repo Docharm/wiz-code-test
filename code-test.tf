@@ -30,7 +30,7 @@ resource "aws_security_group" "bad_sg" {
     from_port   = 3389
     to_port     = 3389
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # ❌ RDP 전체 오픈
+    cidr_blocks = ["0.0.0.0/32"]  # ❌ RDP 전체 오픈
   }
 }
 
@@ -52,7 +52,7 @@ resource "aws_iam_policy" "bad_policy" {
       {
         Effect   = "Allow"
         Action   = "*"
-        Resource = "*"  # ❌ full 권한 test
+        Resource = "*"  
       }
     ]
   })
