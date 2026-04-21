@@ -1,0 +1,31 @@
+name: Wiz Scan
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  wiz-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Wiz CLI
+        run: |
+          curl -L -o wizcli https://downloads.wiz.io/v1/wizcli/latest/wizcli-linux-amd64
+          chmod +x wizcli
+
+      - name: Authenticate
+        run: |
+          ./wizcli auth --id "${WIZ_CLIENT_ID}" --secret "${WIZ_CLIENT_SECRET}"
+        env:
+          WIZ_CLIENT_ID: ${{ secrets.WIZ_CLIENT_ID }}
+          WIZ_CLIENT_SECRET: ${{ secrets.WIZ_CLIENT_SECRET }}
+
+      - name: Run scan
+        run: |
+          ./wizcli scan dir .
